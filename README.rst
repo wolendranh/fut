@@ -1,5 +1,5 @@
 ================================================================================================================================================
-WARNING: I've review requests and this version looks as safe as stable versions for fifa18 but i might have miss something so please be careful.
+WARNING: THIS IS A FORK OF futapi/fut. THIS HAS BEEN MODIFIED FOR USE WITH FIFA 20 AND IS STILL VERY EARLY ON IN DEVELOPMENT, SEE BELOW FOR ORIGINAL DOCUMENTATION FROM THE ORIGINAL SOFTWARE. I DID NOT CREATE THIS SOFTWARE, I HAVE ONLY UPDATED THE CODE TO WORK WITH FIFA 20
 ================================================================================================================================================
 
 ===
