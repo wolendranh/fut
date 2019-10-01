@@ -459,7 +459,7 @@ class Core(object):
         else:
             self.r.headers = headers.copy()  # i'm chrome browser now ;-)
 
-        pre_game_sku = 'FFA19'  # TODO: maybe read from shards v2
+        pre_game_sku = 'FFA20'  # TODO: maybe read from shards v2
         if platform == 'pc':  # TODO: get this from shards
             game_sku = '%sPCC' % pre_game_sku
         elif platform == 'xbox':
@@ -477,7 +477,7 @@ class Core(object):
         #    return True  # no need to log in again
         # emulate
 
-        pre_sku = 'FUT19'  # TODO: maybe read from shards v2
+        pre_sku = 'FUT20'  # TODO: maybe read from shards v2
         if emulate == 'ios':
             sku = '%sIOS' % pre_sku
             clientVersion = 21
@@ -500,7 +500,7 @@ class Core(object):
         else:
             raise FutError(reason='Invalid emulate parameter. (Valid ones are and/ios).')  # pc/ps3/xbox/
         self.sku = sku  # TODO: use self.sku in all class
-        self.sku_b = 'FFT19'  # TODO: maybe read from shards v2
+        self.sku_b = 'FFT20'  # TODO: maybe read from shards v2
 
         # === launch futweb
         # TODO: maybe use custom locals, cause ea knows where u are coming from
@@ -600,12 +600,14 @@ class Core(object):
                 'priorityLevel': 4,
                 'identification': {'authCode': auth_code,
                                    'redirectUrl': 'nucleus:rest'}}
+        print (data)
         rc = self.r.post('https://%s/ut/auth' % self.fut_host, data=json.dumps(data),
                          timeout=self.timeout)
         if rc.status_code == 401:  # and rc.text == 'multiple session'
             raise FutError('multiple session')
         if rc.status_code == 500:
             raise InternalServerError('Servers are probably temporary down.')
+        print (rc)
         rc = rc.json()
         if rc.get('reason') == 'multiple session':
             raise MultipleSession
@@ -685,8 +687,8 @@ class Core(object):
         # init pin
         self.pin = Pin(sid=self.sid, nucleus_id=self.nucleus_id, persona_id=self.persona_id, dob=self.dob[:-3],
                        platform=platform)
-        events = [self.pin.event('login', status='success')]
-        self.pin.send(events)
+        #events = [self.pin.event('login', status='success')]
+        #self.pin.send(events)
 
         # get basic user info
         # TODO: parse usermassinfo and change _usermassinfo to userinfo
@@ -718,8 +720,8 @@ class Core(object):
         self.saveSession()
 
         # pinEvents - home screen
-        events = [self.pin.event('page_view', 'Hub - Home')]
-        self.pin.send(events)
+        #events = [self.pin.event('page_view', 'Hub - Home')]
+        #self.pin.send(events)
 
         # pinEvents - boot_end  # boot_end is connected with "connection" and pops only after browser window loses focus
         # events = [self.pin.event('connection'),
@@ -1467,9 +1469,12 @@ class Core(object):
 
     def pileSize(self):
         """Return size of tradepile and watchlist."""
-        rc = self._usermassinfo['pileSizeClientData']['entries']
-        return {'tradepile': rc[0]['value'],
-                'watchlist': rc[2]['value']}
+        #print (self._usermassinfo)
+        #rc = self._usermassinfo['pileSizeClientData']['entries']
+        #return {'tradepile': rc[0]['value'],
+        #       'watchlist': rc[2]['value']}
+        return {'tradepile': 0,
+                'watchlist': 0}
 
     #
     # def stats(self):
