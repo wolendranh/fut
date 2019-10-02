@@ -12,7 +12,7 @@ import json
 import random
 import re
 import time
-
+import os
 import pyotp
 import requests
 from python_anticaptcha import AnticaptchaClient, FunCaptchaTask, Proxy
@@ -506,6 +506,7 @@ class Core(object):
         # TODO: maybe use custom locals, cause ea knows where u are coming from
         params = {'accessToken': self.access_token,
                   'client_id': client_id,
+                  'client_id': client_id,
                   'response_type': 'token',
                   'release_type': 'prod',
                   'display': 'web2/login',
@@ -578,6 +579,7 @@ class Core(object):
             raise FutError(reason='Error during login process (no persona found).')
 
         # authorization
+        
         # TODO?: with proper saved session we might start here
         del self.r.headers['Easw-Session-Data-Nucleus-Id']
         self.r.headers['Origin'] = 'http://www.easports.com'
@@ -589,10 +591,17 @@ class Core(object):
         rc = self.r.get('https://accounts.ea.com/connect/auth', params=params).json()
         auth_code = rc['code']
 
+        #generate DS
+        path = os.path.dirname(os.path.abspath(__file__))
+        dsCMD = 'cd ' + path + ' && node ds.js ' + auth_code + ' ' + game_sku + ' ' + self.access_token
+        ds = os.popen(dsCMD).read()
+        
+        #postAuth
         self.r.headers['Content-Type'] = 'application/json'
         data = {'isReadOnly': 'false',
                 'sku': self.sku,
                 'clientVersion': clientVersion,
+                'ds': ds, 
                 'nucleusPersonaId': self.persona_id,
                 'gameSku': game_sku,
                 'locale': 'en-US',
