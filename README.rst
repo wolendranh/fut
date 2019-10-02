@@ -1,7 +1,7 @@
 ================================================================================================================================================
 WARNING: THIS IS A FORK OF futapi/fut. THIS HAS BEEN MODIFIED FOR USE WITH FIFA 20 AND IS STILL VERY EARLY ON IN DEVELOPMENT, SEE BELOW FOR ORIGINAL DOCUMENTATION FROM THE ORIGINAL SOFTWARE. I DID NOT CREATE THIS SOFTWARE, I HAVE ONLY UPDATED THE CODE TO WORK WITH FIFA 20
 ================================================================================================================================================
-If you would like to donate to keep this project updated for future FIFA Games as well as updates to the API a dontation would be greatly appreciated: paypal.me/DomMonteFUTAPI
+If you would like to donate to keep this project updated for future FIFA Games as well as updates to the API a dontation would be greatly appreciated: https://paypal.me/DomMonteFUTAPI
 
 ===
 fut
