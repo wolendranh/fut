@@ -383,7 +383,7 @@ class Core(object):
                 # TODO: 'We sent a security code to your email' / 'We sent a security code to your ?'
                 # TODO: pick code from codes.txt?
                 if not code:
-                    self.saveSession()
+                    # self.saveSession()
                     raise AuthCodeRequiredError(reason='Error during login process - code required.')
                     # code = input('Enter code: ')
                 self.r.headers['Referer'] = url = rc.url
