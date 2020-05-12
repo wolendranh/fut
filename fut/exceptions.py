@@ -36,6 +36,11 @@ class NoTradeExistingError(FutError):
     when u bid on an item that has already been sold or the trade id isn't valid."""
 
 
+class AuthCodeRequiredError(FutError):
+    """[478] NO_TRADE_EXISTS (fut)
+    when u bid on an item that has already been sold or the trade id isn't valid."""
+
+
 class ExpiredSession(FutError):
     """Session has expired,
     you should send at least one request every ~10 minutes."""

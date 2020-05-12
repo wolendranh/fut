@@ -42,7 +42,7 @@ from .exceptions import (FutError, ExpiredSession, InternalServerError, Timeout,
                          UnknownError, PermissionDenied, Captcha,
                          Conflict, MaxSessions, MultipleSession,
                          DoLoginFail,
-                         MarketLocked, NoTradeExistingError)
+                         MarketLocked, NoTradeExistingError, AuthCodeRequiredError)
 from .EAHashingAlgorithm import EAHashingAlgorithm
 
 # import stats
@@ -383,9 +383,9 @@ class Core(object):
                 # TODO: 'We sent a security code to your email' / 'We sent a security code to your ?'
                 # TODO: pick code from codes.txt?
                 if not code:
-                    # self.saveSession()
-                    # raise FutError(reason='Error during login process - code is required.')
-                    code = input('Enter code: ')
+                    self.saveSession()
+                    raise AuthCodeRequiredError(reason='Error during login process - code required.')
+                    # code = input('Enter code: ')
                 self.r.headers['Referer'] = url = rc.url
                 # self.r.headers['Upgrade-Insecure-Requests'] = '1'  # ?
                 # self.r.headers['Origin'] = 'https://signin.ea.com'
